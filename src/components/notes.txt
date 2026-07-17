@@ -1,0 +1,10 @@
+state
+state is like a variable used to manage the dynamic nature of a component or used to store the data.
+
+const [statename,setStatename]=useState(initial value)
+
+const [count,setCount]=useState(0)
+
+count---variable name
+setCount---function used to change the state value
+usestate
