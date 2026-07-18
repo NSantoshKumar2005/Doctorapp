@@ -1,59 +1,45 @@
-import React from "react";
-import Navbar from "./components/Navbar";
-import Section from "./components/Section";
-import Doctorcard from "./components/Doctorcard";
-import AddNewDoctor from "./components/Addnewdoctor";
-import "./components/styles.css";
-//import { useState } from 'react'
+import React from 'react'
+import Navbar from './components/Navbar'
+import Section from './components/Section'
+import './components/styles.css'
+import Doctorcard from './components/Doctorcard'
+import Addnewdoctor from './components/Addnewdoctor'
+import { Route, Routes } from 'react-router-dom'
+import Doctordetails from './components/Doctordetails'
+// import { useState } from 'react'
+// import { useEffect } from 'react'
 
-function App(){
+function App() {
+  // const [count,setCount]=useState(0);
+  // const [val,setVal]=useState(0)
+  // useEffect(()=>{
+  //   console.log('request is senting')
+  // },[val])
   return (
-    <>
-    <br />
-
-      <Navbar />
-      <Section />
-      <div className="doctorcontainer">
-        <Doctorcard
-          name="Sivaram"
-          specialization="Ortho Specialist"
-          gender="Male"
-        />
-
-        <Doctorcard
-          name="Teja"
-          specialization="Cardio Specialist"
-          gender="Male"
-        />
-
-        <Doctorcard
-          name="Vasavi"
-          specialization="Psychology Specialist"
-          gender="Female"
-        />
-
-        <Doctorcard
-          name="Madhu"
-          specialization="Ortho Specialist"
-          gender="Male"
-        />
-
-        <Doctorcard
-          name="Aditya"
-          specialization="Skin Specialist"
-          gender="Male"
-        />
-
-        <Doctorcard
-          name="John"
-          specialization="Lungs Specialist"
-          gender="Male"
-        />
-      </div>
-
-      {/* Add Doctor Form - Last */}
-      <AddNewDoctor />
-    </>
+   <> 
+   {/* <br />
+   {count}
+   <button onClick={()=>setVal(val+1)}>value increment</button>
+   <button onClick={()=>setCount(count+1)}>increment</button> */}
+   <Navbar/>
+   <Routes>
+    <Route path='/' element={<Section/>}/>
+    <Route path='/adddoctor' element={<Addnewdoctor/>}/>
+	<Route path='/doctordetails/:id' element={<Doctordetails/>}/>
+   </Routes>
+   {/* <Section/> */}
+{/* 
+   <div className='doctorcontainer'>
+   <Doctorcard name='Sivaram' specialization='ortho spl' gender='male'/>
+   <Doctorcard name='Teja' specialization='Muscles spl' gender='male'/>
+   <Doctorcard name='Vasavi' specialization='Psycho spl' gender='female'/>
+   <Doctorcard name='Madhu' specialization='ortho spl' gender='male'/>
+   <Doctorcard name='Aditya' specialization='skin spl' gender='male'/>
+   <Doctorcard name='John' specialization='Lungs' gender='male'/>
+   </div> */}
+   {/* <Addnewdoctor/> */}
+  </>
   )
 }
-export default App;
+
+export default App

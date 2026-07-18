@@ -1,13 +1,18 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
+
 function Navbar() {
+  const navigate=useNavigate()
+  // it is used for programatical routing in react
   return (
     <header>
         <h1>Doctor app</h1>
         <div>
-                <button>home</button>
-                <button>Add Doctor</button>
+            <button onClick={()=>navigate('/')}>Home</button>
+            <button onClick={()=>navigate('/adddoctor')}>Add doctor</button>
         </div>
     </header>
   )
 }
+
 export default Navbar

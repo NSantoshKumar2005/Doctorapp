@@ -1,10 +1,61 @@
-state
-state is like a variable used to manage the dynamic nature of a component or used to store the data.
+react
+react is open source js library used for buildin single page applications
 
-const [statename,setStatename]=useState(initial value)
+features
+virtual dom---- diffing algorithm --- reconciliation
+component based architecture
+spa 
+
+props
+props are read only inputs used to pass the information from 
+parent component to child component
+
+component 
+reusable part of code used to render part of UI
+
+types of components 
+1) functional components
+hooks - built in function used to implement the react features
+
+2) class components
+life cycle methods
+
+
+
+state
+state is like a variable used to manage the dynamic nature of a 
+component or used to store the daata
+react rerenders whenever the state changes
+
+import useState from 'react'
+const [statename,setStatename]=useState(intial value)
 
 const [count,setCount]=useState(0)
 
-count---variable name
+count---varaible name
 setCount---function used to change the state value
-usestate
+useState -
+it is a hook in functional component that is used to manage
+the state
+
+
+useEffect
+useEffect is a hook that is used to manage side effects
+like apicalls, settimeout,setinterval and localstorage
+
+import {useEffect} from 'react'
+
+//it will run whenever the state changes
+useEffect(()=>{
+    console.log('requestt')
+})
+
+//useEffect with empty dependence array
+useEffect(()=>{
+    console.log('requestt')
+},[])
+
+//useEffect with dependece array with state value
+useEffect(()=>{
+    console.log('requestt')
+},[val])
