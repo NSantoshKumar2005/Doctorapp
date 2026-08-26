@@ -1,62 +1,47 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Doctorcard from "./Doctorcard";
+import axios from "axios";
+import { DoctorContext } from "./Doctorprovider";
+import { useContext } from "react";
 
-function Home({ newdoctor }) {
+function Home() {
+  const {newdoctor}=useContext(DoctorContext)
+
   const [doctors, setDoctors] = useState([]);
   const [search, setSearch] = useState("");
   const [specialization, setSpecialization] = useState("");
 
-  function fetchdata() {
-    let data = [
-      {
-        id: 1,
-        name: "Teja",
-        age: 26,
-        gender: "Male",
-        specialization: "Muscles",
-        salary: 7000000,
-      },
-
-      {
-        id: 2,
-        name: "Sam",
-        age: 26,
-        gender: "Male",
-        specialization: "Bones",
-        salary: 4000000,
-      },
-
-      {
-        id: 3,
-        name: "Anu",
-        age: 25,
-        gender: "Female",
-        specialization: "Heart",
-        salary: 5000000,
-      },
-    ];
-
-    setDoctors(data);
+  async function fetchdata() {
+    try{
+      let api=await axios.get('https://doc-back.onrender.com/doctors')
+    setDoctors(api.data);
+    }catch(err){
+      console.log(err)
+    }
   }
+
+
   useEffect(() => {
     fetchdata();
-  }, []);
-
-  useEffect(() => {
-    if (newdoctor) {
-      setDoctors((prev) => [...prev, newdoctor]);
-    }
   }, [newdoctor]);
 
-  const filtereddoctors = doctors.filter((val) => {
+  const filtereddoctors = useMemo(()=>{
+    return doctors.filter((val) => {
+    console.log('running')
     return (
       val.name.toLowerCase().includes(search.toLowerCase()) &&
       (specialization == "" || val.specialization == specialization)
     );
   });
+  },[specialization,doctors,search])
   return (
-    <>
-      <div>
+    <section className="directory-page">
+      <div className="directory-heading">
+        <p className="eyebrow">SPECIALISTS</p>
+        <h1>Find your doctor</h1>
+        <p>Browse and manage your healthcare team in one place.</p>
+      </div>
+      <div className="doctor-filters">
         <input
           type="text"
           placeholder="search doctor name"
@@ -81,6 +66,8 @@ function Home({ newdoctor }) {
           filtereddoctors.map((doctor) => {
             return (
               <Doctorcard
+              // deldata={deldata}
+              // upddata={upddata}
                 name={doctor.name}
                 key={doctor.id}
                 specialization={doctor.specialization}
@@ -93,7 +80,7 @@ function Home({ newdoctor }) {
           <h2>no doctors found</h2>
         )}
       </div>
-    </>
+    </section>
   );
 }
 

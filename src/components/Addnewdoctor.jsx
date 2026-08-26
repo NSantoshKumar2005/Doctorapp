@@ -1,38 +1,43 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Home from './Home'
-function Addnewdoctor() {
-    const [name,setName]=useState('')
-    const [age,setAge]=useState('')
-    const [gender,setGender]=useState('')
-    const [specialization,setSpecialization]=useState('')
-    const [salary,setSalary]=useState('')
+import axios from 'axios'
+import { DoctorContext } from './Doctorprovider'
 
-    const [newdoctor,setNewdoctor]=useState(null)
-    function handleform(e){
-        e.preventDefault()
-        let formdetails={id:Date.now(),name,age,gender,specialization,salary}
-        setNewdoctor(formdetails)
-        console.log(formdetails)
-    }
+function Addnewdoctor() {
+  const { setNewdoctor } = useContext(DoctorContext)
+  const [name, setName] = useState('')
+  const [age, setAge] = useState('')
+  const [gender, setGender] = useState('')
+  const [specialization, setSpecialization] = useState('')
+  const [salary, setSalary] = useState('')
+
+  async function handleform(e) {
+    e.preventDefault()
+    const formdetails = { id: Date.now(), name, age, gender, specialization, salary }
+    setNewdoctor(formdetails)
+    axios.post('https://doc-back.onrender.com/doctors', formdetails)
+    alert('Doctor added successfully')
+  }
+
   return (
-    <div>
-        <h1>Add New Doctor</h1>
-        <form action="" className='form-container' onSubmit={handleform} >
-            <input type="text" value={name} onChange={(e)=>setName(e.target.value)}  placeholder='Enter Doctor name'/>
-            <input type="text" value={age} onChange={(e)=>setAge(e.target.value)}  placeholder='Enter Age'/>
-            <select value={gender} onChange={(e)=>setGender(e.target.value)}>
-                <option value="">select gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="others">others</option>
-            </select>
-            <input type="text" value={specialization} onChange={(e)=>setSpecialization(e.target.value)}  placeholder='Enter Specialization'/>
-            <input type="text"value={salary} onChange={(e)=>setSalary(e.target.value)}  placeholder='Enter Salary'/>
-            <button type='submit'>Add doctor</button>
+    <main className="add-doctor-page">
+      <section className="form-panel">
+        <p className="eyebrow">DOCTOR DIRECTORY</p>
+        <h1>Add a new doctor</h1>
+        <p className="form-intro">Add a specialist to make them available for patients.</p>
+        <form className='form-container' onSubmit={handleform}>
+          <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder='Enter doctor name' />
+          <input type="text" value={age} onChange={(e) => setAge(e.target.value)} placeholder='Enter age' />
+          <select value={gender} onChange={(e) => setGender(e.target.value)}>
+            <option value="">Select gender</option><option value="male">Male</option><option value="female">Female</option><option value="others">Other</option>
+          </select>
+          <input type="text" value={specialization} onChange={(e) => setSpecialization(e.target.value)} placeholder='Enter specialization' />
+          <input type="text" value={salary} onChange={(e) => setSalary(e.target.value)} placeholder='Enter consultation fee' />
+          <button type='submit'>Save doctor</button>
         </form>
-        <Home newdoctor={newdoctor}/>
-    </div>
+      </section>
+      <Home />
+    </main>
   )
 }
 

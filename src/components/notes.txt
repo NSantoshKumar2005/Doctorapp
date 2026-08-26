@@ -1,3 +1,4 @@
+'''
 react
 react is open source js library used for buildin single page applications
 
@@ -13,11 +14,11 @@ parent component to child component
 component 
 reusable part of code used to render part of UI
 
-types of components 
-1) functional components
+Types of components :
+1)functional components :
 hooks - built in function used to implement the react features
 
-2) class components
+2)class components :
 life cycle methods
 
 
@@ -59,3 +60,27 @@ useEffect(()=>{
 useEffect(()=>{
     console.log('requestt')
 },[val])
+
+api - application 
+
+nom install axios
+
+import axios from 'axios'
+import {useState,useEffect} from 'react'
+function App(){
+    let [val,setval]=useState(null)
+    async function fetchdata(){
+        let api=await axios.get()
+        console.log(api.data)
+        setVal(api.data)
+    }
+    useEffect(()=>{
+        fetchdata()
+    },[])
+    return (
+        
+    )
+}
+'''
+use
+

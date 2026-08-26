@@ -1,60 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
 
 function Doctordetails() {
-  const { id } = useParams();
-  const [doctor, setDoctor] = useState();
-  // it is used to get the dynamic data from url\
-  function fetchdata() {
-    let data = [
-      {
-        id: 1,
-        name: "Teja",
-        age: 26,
-        gender: "Male",
-        specialization: "Muscles",
-        salary: 7000000,
-      },
-
-      {
-        id: 2,
-        name: "Sam",
-        age: 26,
-        gender: "Male",
-        specialization: "Bones",
-        salary: 4000000,
-      },
-
-      {
-        id: 3,
-        name: "Anu",
-        age: 25,
-        gender: "Female",
-        specialization: "Heart",
-        salary: 5000000,
-      },
-    ];
-
-    let doctor = data.find((val) => val.id == id);
-    setDoctor(doctor);
-  }
-
+  const { id } = useParams()
+  const [doctor, setDoctor] = useState()
   useEffect(() => {
-    fetchdata();
-  }, []);
-  return (
-    <div>
-      {doctor && (
-        <div>
-          <h1>Doctor name - {doctor.name}</h1>
-          <div>Age - {doctor.age}</div>
-          <div>Specialization - {doctor.specialization}</div>
-          <div>gender - {doctor.gender}</div>
-          <div>salary - {doctor.salary}</div>
-        </div>
-      )}
-    </div>
-  );
+    axios.get('https://doc-back.onrender.com/doctors').then(({ data }) => setDoctor(data.find((item) => item.id == id)))
+  }, [id])
+  return <main className="details-page">{doctor && <section className="details-card">
+    <div className="details-avatar">👨‍⚕️</div><p className="eyebrow">DOCTOR PROFILE</p><h1>Dr. {doctor.name}</h1>
+    <div className="details-grid"><p><span>Age</span>{doctor.age} years</p><p><span>Specialization</span>{doctor.specialization}</p><p><span>Gender</span>{doctor.gender}</p><p><span>Consultation fee</span>₹{doctor.salary}</p></div>
+  </section>}</main>
 }
-
-export default Doctordetails;
+export default Doctordetails
